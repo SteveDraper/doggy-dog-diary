@@ -1,0 +1,94 @@
+# --- Local instance data (SQLite, photos, sync exports) ---
+data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Sync and backup exports
+*.sync.zip
+*-export.zip
+exports/
+
+# Instance config (keep config.example.yaml tracked)
+config.yaml
+config.local.yaml
+
+# --- Python / backend ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# uv
+.uv/
+uv.lock.bak
+
+# packaging / distribution
+build/
+dist/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+site/
+
+# tests and type checking
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+dmypy.json
+
+# --- Node / frontend ---
+node_modules/
+frontend/dist/
+frontend/build/
+*.tsbuildinfo
+
+# Vite
+frontend/.vite/
+
+# --- Built SPA bundled into backend (production) ---
+backend/static/spa/
+
+# --- Logs and temp files ---
+*.log
+logs/
+tmp/
+temp/
+.cache/
+
+# --- OS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+
+# --- Editors / IDEs ---
+.idea/
+*.swp
+*.swo
+*~
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+
+# --- Secrets (never commit) ---
+*.pem
+*.key
+credentials.json
+secrets.yaml
