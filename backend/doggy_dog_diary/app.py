@@ -55,7 +55,7 @@ def create_app(config: AppConfig, engine: Engine) -> FastAPI:
         @app.get("/{full_path:path}")
         def spa_fallback(full_path: str) -> FileResponse:
             # API routes are registered above; this catches client-side routes.
-            if full_path.startswith("api/"):
+            if full_path == "api" or full_path.startswith("api/"):
                 raise HTTPException(status_code=404, detail="Not found")
             static_file = resolve_static_spa_path(full_path)
             if static_file is not None:
