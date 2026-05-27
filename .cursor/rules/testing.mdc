@@ -1,0 +1,36 @@
+---
+description: Test frameworks and how to run the test suite
+alwaysApply: false
+globs: backend/**/*.py,backend/tests/**,frontend/**/*.{ts,tsx},frontend/e2e/**
+---
+
+# Testing
+
+## Frameworks
+
+| Layer | Framework | Location |
+|-------|-----------|----------|
+| Backend | **pytest** | `backend/tests/` |
+| Frontend | **Playwright** | `frontend/e2e/` |
+
+Do not introduce alternate test runners (e.g. Jest/Vitest for UI, unittest for API) without an explicit project decision.
+
+## Make targets
+
+- `make test_server` — backend unit tests (`uv run pytest`)
+- `make test_frontend` — Playwright e2e tests (`npm run test` in `frontend/`)
+- `make ci` — both; used by GitHub Actions on PRs and pushes to `main`
+
+## Writing tests
+
+**Backend:** Use pytest with `httpx`/`TestClient` for API tests. Prefer `tmp_path` fixtures for config and SQLite; avoid touching the developer’s `.data/` directory.
+
+**Frontend:** Use `@playwright/test` against the built app via Vite preview (see `frontend/playwright.config.ts`). Assert user-visible behaviour (roles, text), not implementation details.
+
+## CI
+
+`.github/workflows/ci.yml` runs `make ci` on pull requests targeting `main` and on pushes to `main`.
+
+## Known noise
+
+`@tailwindcss/node` (Tailwind v4 Vite plugin) triggers Node `DEP0205` (`module.register` deprecation) during `vite build`. Frontend npm scripts set `NODE_OPTIONS=--disable-warning=DEP0205` until upstream fixes it.
