@@ -1,5 +1,5 @@
 # --- Local instance data (SQLite, photos, sync exports) ---
-data/
+.data/
 *.db
 *.db-journal
 *.db-wal
@@ -57,6 +57,12 @@ node_modules/
 frontend/dist/
 frontend/build/
 *.tsbuildinfo
+
+# Playwright
+frontend/test-results/
+frontend/playwright-report/
+frontend/blob-report/
+frontend/playwright/.cache/
 
 # Vite
 frontend/.vite/

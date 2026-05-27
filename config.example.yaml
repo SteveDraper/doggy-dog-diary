@@ -1,0 +1,6 @@
+# Copy to config.yaml and adjust paths for your machine.
+# Relative storage_path is resolved from the config file's directory.
+storage_path: ./.data
+instance_id: my-instance-2026
+host: 127.0.0.1
+port: 8000
