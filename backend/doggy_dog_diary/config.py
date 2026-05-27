@@ -33,6 +33,19 @@ def _expand_path(value: str, *, base_dir: Path | None = None) -> Path:
     return (root / expanded).resolve()
 
 
+def _config_search_roots() -> list[Path]:
+    """Walk cwd and parents so config at the repo root is found from backend/."""
+    seen: set[Path] = set()
+    roots: list[Path] = []
+    for directory in (Path.cwd(), *Path.cwd().parents):
+        resolved = directory.resolve()
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        roots.append(resolved)
+    return roots
+
+
 def find_config_path(explicit: str | None = None) -> Path:
     if explicit:
         path = Path(explicit).expanduser().resolve()
@@ -40,14 +53,15 @@ def find_config_path(explicit: str | None = None) -> Path:
             raise FileNotFoundError(f"Config file not found: {path}")
         return path
 
-    for name in DEFAULT_CONFIG_FILENAMES:
-        candidate = Path(name)
-        if candidate.is_file():
-            return candidate.resolve()
+    for directory in _config_search_roots():
+        for name in DEFAULT_CONFIG_FILENAMES:
+            candidate = directory / name
+            if candidate.is_file():
+                return candidate.resolve()
 
-    example = Path("config.example.yaml")
     raise FileNotFoundError(
-        "No config.yaml found. Copy config.example.yaml to config.yaml and edit storage_path."
+        "No config.yaml found. Copy config.example.yaml to config.yaml at the project root "
+        "and edit storage_path."
     )
 
 

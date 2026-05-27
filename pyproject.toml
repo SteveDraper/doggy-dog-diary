@@ -25,6 +25,9 @@ doggy-dog-diary = "doggy_dog_diary.cli:main"
 requires = ["setuptools>=75"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+package-dir = { "" = "backend" }
+
 [tool.setuptools.packages.find]
 where = ["backend"]
 
