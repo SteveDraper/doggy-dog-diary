@@ -33,7 +33,7 @@ dev-ui:
 	cd frontend && npm run dev
 
 dev:
-	@echo "API http://127.0.0.1:8000 · SPA dev http://127.0.0.1:5173 (proxies /api)"
+	@echo "API http://127.0.0.1:$$(grep '^port:' $(CONFIG_PATH) | awk '{print $$2}') · SPA dev http://127.0.0.1:5173 (proxies /api)"
 	@trap 'kill 0' INT; \
 		uv run doggy-dog-diary start & \
 		cd frontend && npm run dev; \

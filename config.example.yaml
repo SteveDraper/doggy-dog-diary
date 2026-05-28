@@ -3,4 +3,4 @@
 storage_path: ./.data
 instance_id: my-instance-2026
 host: 127.0.0.1
-port: 8000
+port: 8080

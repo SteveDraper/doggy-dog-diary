@@ -9,6 +9,7 @@ from sqlalchemy import text
 from sqlalchemy.engine import Engine
 
 from doggy_dog_diary.config import AppConfig
+from doggy_dog_diary.routers.dogs import router as dogs_router
 
 STATIC_SPA_DIR = Path(__file__).resolve().parent.parent / "static" / "spa"
 
@@ -46,6 +47,8 @@ def create_app(config: AppConfig, engine: Engine) -> FastAPI:
             "instance_id": config.instance_id,
             "database": db_ok,
         }
+
+    app.include_router(dogs_router)
 
     if STATIC_SPA_DIR.is_dir() and (STATIC_SPA_DIR / "index.html").is_file():
         assets_dir = STATIC_SPA_DIR / "assets"

@@ -21,12 +21,13 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npm run build && npm run preview -- --host 127.0.0.1 --port ${previewPort}`,
+    command: "../scripts/e2e-server.sh",
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
     env: {
       ...process.env,
+      E2E_PORT: String(previewPort),
       NODE_OPTIONS: "--disable-warning=DEP0205",
     },
   },
